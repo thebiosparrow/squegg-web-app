@@ -1,0 +1,13 @@
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "dev" ]; then
+  yarn build:dev
+  git add dist
+  git commit -m 'Dev build' --no-verify
+  git push origin $(git rev-parse --abbrev-ref HEAD) --no-verify
+fi
+if [ "$branch" = "main" ]; then
+  yarn build:production
+  git add dist
+  git commit -m 'Production build' --no-verify
+  git push origin $(git rev-parse --abbrev-ref HEAD) --no-verify
+fi
